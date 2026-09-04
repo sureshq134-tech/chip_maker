@@ -1,0 +1,79 @@
+{
+  "openai": "",
+  "gemini": "",
+  "anthropic": "",
+    
+    "app_name": "AI Screenshot Assistant - C++ Stealth Edition",
+    "version": "1.0.0",
+    "stealth_level": "EXPERT",
+    
+    "stealth_settings": {
+        "process_name": "dwm.exe",
+        "window_title": "Desktop Window Manager",
+        "hide_from_taskbar": true,
+        "hide_from_alt_tab": true,
+        "hide_from_process_list": true,
+        "inject_into_browser": true,
+        "bypass_proctoring": true,
+        "randomize_names": true
+    },
+    
+    "hotkeys": {
+        "screenshot": "Ctrl+Alt+S",
+        "interview_mode": "Ctrl+Alt+I",
+        "hide_show": "Ctrl+Alt+H",
+        "provider_switch": "Ctrl+Alt+B"
+    },
+    
+    "ai_settings": {
+        "default_provider": "openai",
+        "timeout_seconds": 60,
+        "max_tokens": 1000,
+        "retry_attempts": 3,
+        "parallel_requests": true
+    },
+    
+    "screenshot_settings": {
+        "quality": 90,
+        "format": "JPEG",
+        "capture_method": "GDI",
+        "save_to_file": false,
+        "auto_delete": true
+    },
+    
+    "logging": {
+        "enabled": true,
+        "level": "INFO",
+        "file": "stealth_log.txt",
+        "max_size_mb": 10,
+        "auto_rotate": true
+    },
+    
+    "proctoring_bypass": {
+        "hirepro": true,
+        "msb": true,
+        "proctoru": true,
+        "generic": true,
+        "dll_injection": true,
+        "api_hooking": true,
+        "process_masquerading": true
+    },
+    
+    "browser_injection": {
+        "chrome": true,
+        "firefox": true,
+        "edge": true,
+        "ie": true,
+        "auto_inject": true,
+        "injection_delay_ms": 5000
+    },
+    
+    "advanced_stealth": {
+        "hook_system_apis": true,
+        "modify_peb": true,
+        "hide_memory_regions": true,
+        "fake_process_creation": true,
+        "simulate_user_activity": true,
+        "random_delays": true
+    }
+}
