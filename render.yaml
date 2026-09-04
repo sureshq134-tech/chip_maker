@@ -9,5 +9,3 @@ services:
     envVars:
       - key: OPENAI_API_KEY
         sync: false
-      - key: BACKEND_ACCESS_TOKEN
-        sync: false

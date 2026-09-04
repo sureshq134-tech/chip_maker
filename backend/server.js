@@ -1,9 +1,7 @@
 const http = require("node:http");
-const crypto = require("node:crypto");
 
 const PORT = Number(process.env.PORT || 10000);
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY || "";
-const BACKEND_ACCESS_TOKEN = process.env.BACKEND_ACCESS_TOKEN || "";
 const OPENAI_URL = "https://api.openai.com/v1/chat/completions";
 const ALLOWED_MODELS = new Set(["gpt-5.6-sol", "gpt-5.6-luna"]);
 const MAX_BODY_BYTES = 24 * 1024 * 1024;
@@ -18,16 +16,6 @@ function sendJson(response, status, body) {
     "Cache-Control": "no-store"
   });
   response.end(data);
-}
-
-function authorized(request) {
-  const supplied = request.headers.authorization || "";
-  const expected = `Bearer ${BACKEND_ACCESS_TOKEN}`;
-  const suppliedBytes = Buffer.from(supplied);
-  const expectedBytes = Buffer.from(expected);
-  return BACKEND_ACCESS_TOKEN.length > 0 &&
-    suppliedBytes.length === expectedBytes.length &&
-    crypto.timingSafeEqual(suppliedBytes, expectedBytes);
 }
 
 async function readJson(request) {
@@ -99,8 +87,8 @@ function validateAndNormalize(body) {
 
 const server = http.createServer(async (request, response) => {
   if (request.method === "GET" && request.url === "/health") {
-    sendJson(response, OPENAI_API_KEY && BACKEND_ACCESS_TOKEN ? 200 : 503, {
-      status: OPENAI_API_KEY && BACKEND_ACCESS_TOKEN ? "ok" : "not_configured"
+    sendJson(response, OPENAI_API_KEY ? 200 : 503, {
+      status: OPENAI_API_KEY ? "ok" : "not_configured"
     });
     return;
   }
@@ -113,11 +101,6 @@ const server = http.createServer(async (request, response) => {
     sendJson(response, 503, { error: { message: "Backend is not configured" } });
     return;
   }
-  if (!authorized(request)) {
-    sendJson(response, 401, { error: { message: "Unauthorized" } });
-    return;
-  }
-
   try {
     const body = validateAndNormalize(await readJson(request));
     const upstream = await fetch(OPENAI_URL, {
