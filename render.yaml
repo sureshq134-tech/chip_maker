@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: chip-maker-api
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: BACKEND_ACCESS_TOKEN
+        generateValue: true
